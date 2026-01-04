@@ -9,7 +9,7 @@ MobSF(Mobile Security Framework)를 활용한 Android APK **정적(Static) 및 �
 - **Dropped APK Detection**: 분석 도중 기기에 새로 설치되거나 생성된 악성 APK를 탐지하고 추출하여 재분석
 
 ## 🛠️ Prerequisites
-이 도구를 사용하기 위해 다음 환경이 필요
+이 도구를 사용하기 위해 다음 환경이 필요함
 
 1. **Python 3.8+**
 2. **MobSF (Mobile Security Framework)**
