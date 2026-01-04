@@ -21,7 +21,7 @@ MobSF(Mobile Security Framework)를 활용한 Android APK **정적(Static) 및 �
    - 루팅된 에뮬레이터 정상 동작 확인 필수 (Genymotion, Android Studio AVD 등)
 5. **Setup (.env)** 
     
-        ```# MobSF 서버 주소
+        # MobSF 서버 주소
         MOBSF_URL=http://localhost:8000
 
         # MobSF API Key (MobSF 대시보드 -> API Docs에서 확인 가능)
@@ -32,7 +32,7 @@ MobSF(Mobile Security Framework)를 활용한 Android APK **정적(Static) 및 �
 
         # 동적 분석 대기 시간 (초)
         WAIT_TIME=60
-        ```
+        
 
 ## 🚀 Usage
 1. MobSF 서버 실행 (Docker 또는 Local)
@@ -44,7 +44,7 @@ MobSF(Mobile Security Framework)를 활용한 Android APK **정적(Static) 및 �
 
 
 ## 📂 Project Structure
-    ```.
+    .
     ├── config.py              # 환경 설정 및 경로 관리
     ├── main.py                # 프로그램 진입점 (Main workflow)
     ├── frida_script.js        # Frida 후킹 스크립트
@@ -56,5 +56,5 @@ MobSF(Mobile Security Framework)를 활용한 Android APK **정적(Static) 및 �
     │   └── file_handler.py    # 파일 입출력 처리
     ├── static_reports/        # 정적 분석 결과 저장소
     └── dynamic_reports/       # 동적 분석 결과 저장소
-    ```
+    
 
