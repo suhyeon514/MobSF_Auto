@@ -1,0 +1,20 @@
+# 1. 민감한 환경 변수 파일 (가장 중요)
+.env
+
+# 2. 파이썬 컴파일 파일 (불필요)
+__pycache__/
+*.pyc
+
+# 3. 분석 결과 및 데이터 폴더 (config.py에 정의된 경로들)
+static_reports/
+dynamic_reports/
+installed_packages/
+dropped_apks/
+
+# 4. OS 시스템 파일
+.DS_Store
+Thumbs.db
+
+# 5. 파일 backup 폴더
+backup/
+.vscode/    
