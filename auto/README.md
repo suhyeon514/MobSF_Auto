@@ -56,5 +56,6 @@ MobSF(Mobile Security Framework)를 활용한 Android APK **정적(Static) 및 �
     │   └── file_handler.py    # 파일 입출력 처리
     ├── static_reports/        # 정적 분석 결과 저장소
     └── dynamic_reports/       # 동적 분석 결과 저장소
+    └── dropped_apks/          # 분석한 apk 다운로드
     
 
