@@ -1,6 +1,6 @@
 import subprocess
 import time
-
+import os
 class ADBManager:
     def __init__(self):
         self.device_id = None
@@ -87,19 +87,42 @@ class ADBManager:
 
     # 특정 패키지의 APK 추출
     # 주어진 패키지 이름에 해당하는 APK 파일을 기기에서 추출하여 로컬 디렉토리에 저장
+     # [수정됨] 특정 패키지의 APK 추출 (Split APK 대응 및 OS 경로 호환성 강화)
     def pull_apk(self, package_name, dest_dir):
         path_out = self.execute_command(f"shell pm path {package_name}")
-        if not path_out or not path_out.startswith("package:"):
-            print(f"[-] Failed to get APK path for package: {package_name}")
+        if not path_out:
+            print(f"[-] Failed to get APK path for: {package_name}")
             return None
-            
-        device_path = path_out.split("package:")[1].strip()
-        local_path = f"{dest_dir}/{package_name}.apk"
+
+        # [수정] 여러 줄(Split APK)이 나올 경우 처리 로직
+        lines = path_out.strip().splitlines()
+        apk_path_on_device = None
+        
+        for line in lines:
+            clean_line = line.replace("package:", "").strip()
+            # base.apk를 최우선으로 찾음
+            if "base.apk" in clean_line:
+                apk_path_on_device = clean_line
+                break
+        
+        # base.apk가 없으면 첫 번째 줄 사용
+        if not apk_path_on_device and lines:
+            apk_path_on_device = lines[0].replace("package:", "").strip()
+
+        if not apk_path_on_device:
+            return None
+
+        # [수정] Windows/Mac 경로 호환성을 위해 os.path.join 사용
+        local_path = os.path.join(dest_dir, f"{package_name}.apk")
         
         print(f"[*] Pulling APK: {package_name}")
-        result = self.execute_command(f"pull {device_path} {local_path}")
-        if result:
+        
+        # 큰 따옴표("")로 감싸서 경로에 공백이 있어도 처리 가능하게 함
+        result = self.execute_command(f"pull {apk_path_on_device} \"{local_path}\"")
+        
+        # 실제로 파일이 생겼는지 확인
+        if os.path.exists(local_path) and os.path.getsize(local_path) > 0:
             return local_path
         else:
-            print(f"[-] Failed to pull APK: {package_name}")
+            print(f"[-] Failed to pull APK (File not found locally): {package_name}")
             return None
